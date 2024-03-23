@@ -51,33 +51,41 @@ type Resposta struct {
 	Data []Player `json:"data"`
 }
 
-func setPlayers(p *Player, resposta Resposta){
-	for i := range resposta.Data{
+func setPlayers(p *Player, players Resposta){
+	for i := range players.Data{
 		
-		p = &resposta.Data[i]
+		p = &players.Data[i]
 		fmt.Println("ID:", p.PlayerID)
 		fmt.Println("Nome:", p.PlayerName)
 	}
 
 }
 
+func alterarStats(p Player){
+	p.Gp = p.Gp * 3
+	fmt.Println(p.Gp)
+	fmt.Println(p.PlayerName)
+}
+
 func main(){
 	res, _ := http.Get("https://technicalowl.herokuapp.com/playerhustlestats?seasontype=regular&season=2023")
-	var resposta Resposta
-	err := json.NewDecoder(res.Body).Decode(&resposta)
+	var players Resposta
+	err := json.NewDecoder(res.Body).Decode(&players)
 	if err != nil {
 		fmt.Println("Erro ao decodificar JSON:", err)
 		return
 	}
-	if len(resposta.Data) > 0 {
-		primeiroItem := resposta.Data[0]
-		fmt.Println("ID:", primeiroItem.PlayerID)
-		fmt.Println("Nome:", primeiroItem.PlayerName)
-	} else {
-		fmt.Println("Lista de dados está vazia")
-	}
-	fmt.Println("Nome:", resposta.Data[1].PlayerName)
+	// if len(players.Data) > 0 {
+	// 	primeiroItem := players.Data[0]
+	// 	fmt.Println("ID:", primeiroItem.PlayerID)
+	// 	fmt.Println("Nome:", primeiroItem.PlayerName)
+	// } else {
+	// 	fmt.Println("Lista de dados está vazia")
+	// }
+	//fmt.Println("Nome:", players.Data[1].PlayerName)
 	//var p1 Player
 	//setPlayers(&p1, resposta)
+	alterarStats(players.Data[0])
 }
 //O vetor com os players ja existe, é o resposta.data
+//todo - logica para conseguir os inputs dos coeficientes via post e multiplicar
