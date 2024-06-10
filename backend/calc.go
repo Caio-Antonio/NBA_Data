@@ -75,8 +75,24 @@ func setPlayers(p *Player, players Resposta){
 
 func AlterarStats(p Player, coef Coeficients){
 	p.AvgSpeed = p.AvgSpeed * float64(coef.AvgSpeedCoef)
-	fmt.Println(p.AvgSpeed)
+	p.BoxOuts = p.BoxOuts * int(coef.BoxOutsCoef)
+	p.ChargesDrawn = p.ChargesDrawn * int(coef.ChargesCoef)
+	p.ContestedShots2Pt = p.ContestedShots2Pt * int(coef.ContestedShots2PtCoef)
+	p.ContestedShots3Pt = p.ContestedShots3Pt * int(coef.ContestedShots3PtCoef)
+	p.Deflections = p.Deflections * int(coef.DeflectionsCoef)
+	p.DistanceTraveled = p.DistanceTraveled * float64(coef.DistanceTraveledCoef)
+	p.LooseBallsRecovered = p.LooseBallsRecovered * int(coef.LooseBallsRecoveredCoef)
+	p.ScreenAstPts = p.ScreenAstPts * int(coef.ScreenAstPtsCoef)
 	fmt.Println(p.PlayerName)
+	fmt.Println(p.AvgSpeed)
+	fmt.Println(p.BoxOuts)
+	fmt.Println(p.ChargesDrawn)
+	fmt.Println(p.ContestedShots2Pt)
+	fmt.Println(p.ContestedShots3Pt)
+	fmt.Println(p.Deflections)
+	fmt.Println(p.DistanceTraveled)
+	fmt.Println(p.LooseBallsRecovered)
+	fmt.Println(p.ScreenAstPts)
 }
 
 func main(){
