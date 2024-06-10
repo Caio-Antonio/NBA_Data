@@ -1,4 +1,4 @@
-package main
+package calc
 
 import (
 	"encoding/json"
@@ -47,6 +47,18 @@ type Player struct {
 	DistanceTraveledPer36Zscore      float64 `json:"distance_traveled_per_36_zscore"`
 }
 
+type Coeficients struct {
+	AvgSpeedCoef int16 `json:"AvgSpeedCoef"`
+	BoxOutsCoef int16 `json:"BoxOutsCoef"`
+	ChargesCoef int16 `json:"ChargesCoef"`
+	ContestedShots2PtCoef int16 `json:"ContestedShots2PtCoef"`
+	ContestedShots3PtCoef int16 `json:"ContestedShots3PtCoef"`
+	DeflectionsCoef int16 `json:"DeflectionsCoef"`
+	DistanceTraveledCoef int16 `json:"DistanceTraveledCoef"`
+	LooseBallsRecoveredCoef int16 `json:"LooseBallsRecoveredCoef"`
+	ScreenAstPtsCoef int16 `json:"ScreenAstPtsCoef"`
+}
+
 type Resposta struct {
 	Data []Player `json:"data"`
 }
@@ -61,9 +73,9 @@ func setPlayers(p *Player, players Resposta){
 
 }
 
-func alterarStats(p Player){
-	p.Gp = p.Gp * 3
-	fmt.Println(p.Gp)
+func AlterarStats(p Player, coef Coeficients){
+	p.AvgSpeed = p.AvgSpeed * float64(coef.AvgSpeedCoef)
+	fmt.Println(p.AvgSpeed)
 	fmt.Println(p.PlayerName)
 }
 
@@ -85,7 +97,7 @@ func main(){
 	//fmt.Println("Nome:", players.Data[1].PlayerName)
 	//var p1 Player
 	//setPlayers(&p1, resposta)
-	alterarStats(players.Data[0])
+	//AlterarStats(players.Data[0], 3)
 }
 //O vetor com os players ja existe, é o resposta.data
 //todo - logica para conseguir os inputs dos coeficientes via post e multiplicar
